@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Mohanram145/Sakthi-Steels-Backend.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t sakthi-steels-backend .'
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                bat '''
+                docker stop sakthi-steels-backend || exit 0
+                docker rm sakthi-steels-backend || exit 0
+                '''
+            }
+        }
+
+        stage('Run New Container') {
+            steps {
+                bat '''
+                docker run -d -p 3000:3000 --name sakthi-steels-backend sakthi-steels-backend
+                '''
+            }
+        }
+    }
+}
