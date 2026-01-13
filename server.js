@@ -1,22 +1,16 @@
-const express = require("express");
-const cors = require("cors");
-
-const cementRoutes = require("./routes/cement");
-const orderRoutes = require("./routes/order");
-
+const express = require('express');
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const cementRoutes = require('./routes/cement');
+const orderRoutes = require('./routes/order');
 
-app.use("/api/cements", cementRoutes);
-app.use("/api/orders", orderRoutes);
+app.use('/cement', cementRoutes);
+app.use('/order', orderRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Sakthi Steels Backend Running 🚚");
+app.get('/', (req, res) => {
+  res.send('Sakthi Steels Backend Running 🧱');
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server running on port 3000');
 });
